@@ -60,6 +60,44 @@
   font-size: 1rem;
 }
 
+/* User Dropdown Styles */
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: auto; /* Pushes the dropdown to the right */
+}
+
+.dropdown-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: #fff;
+  color: #000;
+  min-width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  z-index: 100;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.user-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.user-dropdown hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 0.5rem 0;
+}
 
 body {
   font-family: 'Segoe UI', sans-serif;
