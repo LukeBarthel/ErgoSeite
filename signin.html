@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In - Educational Journey</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Inline CSS for demo purposes; you can include in styles.css -->
+  <style>
+    .signin-body {
+      background: linear-gradient(135deg, #0a1128, #001f54);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .signin-container {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      width: 320px;
+      text-align: center;
+    }
+    .signin-container h2 {
+      margin-bottom: 1rem;
+      color: #0a1128;
+    }
+    .signin-container form {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+    .signin-container label {
+      margin-top: 1rem;
+      text-align: left;
+      color: #0a1128;
+    }
+    .signin-container input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .action-btn {
+      background: #ff5a5f;
+      color: #ffffff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      margin-top: 1rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+    .action-btn:hover {
+      background: #ff7e82;
+    }
+    .error-message {
+      color: #ff5a5f;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    .toggle-link {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body class="signin-body">
+  <div class="signin-container">
+    <h2 id="form-title">Sign In</h2>
+    
+    <!-- Sign In Form -->
+    <form id="signin-form">
+      <label for="signin-username">Username</label>
+      <input type="text" id="signin-username" required />
+
+      <label for="signin-password">Password</label>
+      <input type="password" id="signin-password" required />
+
+      <button type="submit" class="action-btn">Sign In</button>
+      <p id="signin-error" class="error-message"></p>
+      <p class="toggle-link">Don't have an account? <a href="#" id="show-register">Register</a></p>
+    </form>
+    
+    <!-- Registration Form -->
+    <form id="register-form" style="display: none;">
+      <label for="register-username">Username</label>
+      <input type="text" id="register-username" required />
+
+      <label for="register-password">Password</label>
+      <input type="password" id="register-password" required />
+
+      <button type="submit" class="action-btn">Register</button>
+      <p id="register-error" class="error-message"></p>
+      <p class="toggle-link">Already have an account? <a href="#" id="show-signin">Sign In</a></p>
+    </form>
+  </div>
+
+  <script>
+    // Toggle between Sign In and Registration forms
+    const signinForm = document.getElementById('signin-form');
+    const registerForm = document.getElementById('register-form');
+    const showRegisterLink = document.getElementById('show-register');
+    const showSigninLink = document.getElementById('show-signin');
+    const formTitle = document.getElementById('form-title');
+    const signinError = document.getElementById('signin-error');
+    const registerError = document.getElementById('register-error');
+
+    showRegisterLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      signinForm.style.display = 'none';
+      registerForm.style.display = 'flex';
+      formTitle.textContent = 'Register';
+      signinError.textContent = '';
+    });
+
+    showSigninLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      registerForm.style.display = 'none';
+      signinForm.style.display = 'flex';
+      formTitle.textContent = 'Sign In';
+      registerError.textContent = '';
+    });
+
+    // Utility functions to load/save accounts from/to localStorage
+    function loadAccounts() {
+      const accounts = localStorage.getItem('accounts');
+      return accounts ? JSON.parse(accounts) : {};
+    }
+
+    function saveAccounts(accounts) {
+      localStorage.setItem('accounts', JSON.stringify(accounts));
+    }
+
+    // Handle sign in form submission
+    signinForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('signin-username').value.trim();
+      const password = document.getElementById('signin-password').value;
+
+      const accounts = loadAccounts();
+
+      if (!accounts[username]) {
+        signinError.textContent = 'User unknown. Please register.';
+      } else if (accounts[username] !== password) {
+        signinError.textContent = 'Password is incorrect.';
+      } else {
+        // Successful sign in
+        localStorage.setItem('loggedIn', 'true');
+        window.location.href = 'index.html'; // Redirect to Homepage
+      }
+    });
+
+    // Handle registration form submission
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('register-username').value.trim();
+      const password = document.getElementById('register-password').value;
+
+      const accounts = loadAccounts();
+
+      if (accounts[username]) {
+        registerError.textContent = 'An account with that username already exists.';
+      } else {
+        // Register new account
+        accounts[username] = password;
+        saveAccounts(accounts);
+        alert('Registration successful! Please sign in.');
+        registerForm.reset();
+        // Switch back to Sign In mode
+        registerForm.style.display = 'none';
+        signinForm.style.display = 'flex';
+        formTitle.textContent = 'Sign In';
+      }
+    });
+  </script>
+</body>
+</html>

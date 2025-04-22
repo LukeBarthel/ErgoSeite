@@ -1,0 +1,238 @@
+/* Define color variables and shared styles */
+:root {
+  --primary-bg: #0a1128;
+  --secondary-bg: #001f54;
+  --accent: #034078;
+  --light-accent: #3fc1c9;
+  --btn-bg: #ff5a5f;
+  --btn-hover: #ff7e82;
+  --text-color: #ffffff;
+  --card-bg: #ffffff;
+  --card-text: #000000;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Updated Sign In Page Styling */
+.signin-body {
+  background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.signin-container {
+  background: #ffffff;            /* White background for contrast */
+  padding: 2rem;
+  border-radius: 16px;            /* Increased rounded edges */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 320px;
+  text-align: center;
+}
+
+.signin-container h2 {
+  margin-bottom: 1rem;
+  color: var(--primary-bg);       /* A hint of your site's primary color */
+}
+
+.signin-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signin-container label {
+  margin-top: 1rem;
+  text-align: left;
+  color: var(--primary-bg);
+}
+
+.signin-container input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header styling */
+header {
+  background: linear-gradient(90deg, var(--accent), var(--light-accent));
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+nav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Main section styling */
+main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.section {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+}
+
+.section-content {
+  max-width: 800px;
+  margin: auto;
+}
+
+.section h2 {
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 0.5rem;
+}
+
+/* Home page intro styling */
+.home-intro p {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.explore-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Button styling */
+.action-btn {
+  background: var(--btn-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.action-btn:hover {
+  background: var(--btn-hover);
+}
+
+/* Cards styling */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.card {
+  width: 200px;
+  height: 250px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.card-front {
+  background: var(--card-bg);
+  color: var(--card-text);
+}
+
+.card-back {
+  background: var(--accent);
+  color: var(--text-color);
+  transform: rotateY(180deg);
+}
+
+/* Essay textarea styling */
+textarea#essay-input {
+  width: 100%;
+  height: 150px;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 2px solid var(--accent);
+  background: var(--card-bg);
+  color: var(--card-text);
+  font-size: 1rem;
+  resize: vertical;
+}
+
+/* Footer styling */
+footer {
+  background: var(--secondary-bg);
+  text-align: center;
+  padding: 1rem;
+}
