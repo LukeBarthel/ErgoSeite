@@ -391,23 +391,25 @@ footer {
   }
 
   .header-content {
-    flex-direction: row; /* Arrange items in a row */
+    display: flex;
     flex-wrap: wrap; /* Allow wrapping to prevent stacking */
     gap: 1rem; /* Add spacing between elements */
-    justify-content: space-between; /* Spread items across the header */
+    justify-content: center; /* Center all elements */
     align-items: center;
   }
 
   nav ul {
+    display: flex;
     flex-direction: row; /* Arrange navigation links in a row */
     gap: 1rem; /* Add spacing between links */
     padding: 0;
+    justify-content: center; /* Center navigation links */
   }
 
   .user-dropdown {
-    margin-left: 0; /* Center dropdown */
     order: 2; /* Place dropdown at the end */
-    align-self: flex-start; /* Align dropdown to the top */
+    align-self: center; /* Center dropdown */
+    margin-top: 1rem; /* Add spacing above dropdown */
   }
 
   .explore-links {
