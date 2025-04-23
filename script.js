@@ -208,4 +208,44 @@ function updateProgressDisplay() {
   }
 }
 
-  
+document.addEventListener("DOMContentLoaded", () => {
+  const essays = {
+    1: {
+      title: "The Wonders of Space",
+      body: "Space is vast and full of mysteries. From black holes to distant galaxies, it continues to inspire humanity."
+    },
+    2: {
+      title: "The Beauty of Nature",
+      body: "Nature's beauty lies in its diversity, from towering mountains to serene beaches and lush forests."
+    },
+    3: {
+      title: "The Evolution of Technology",
+      body: "Technology has transformed our lives, from the invention of the wheel to the rise of artificial intelligence."
+    }
+  };
+
+  const modal = document.getElementById("essay-modal");
+  const modalTitle = document.getElementById("modal-title");
+  const modalBody = document.getElementById("modal-body");
+  const closeBtn = document.querySelector(".close-btn");
+
+  document.querySelectorAll(".essay-box").forEach((box) => {
+    box.addEventListener("click", () => {
+      const essayLink = box.getAttribute("data-essay-link");
+      if (essayLink) {
+        window.location.href = essayLink; // Navigate to the essay page
+      }
+    });
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+

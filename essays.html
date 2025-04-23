@@ -23,11 +23,61 @@
   <main>
     <section id="essays" class="section">
       <div class="section-content">
-        <h2>Compose Your Essays</h2>
-        <textarea id="essay-input" placeholder="Write your essay here..."></textarea>
+        <h2>Explore Pre-Written Essays</h2>
+        <div class="essay-selector-container">
+          <div class="essay-grid scrollable">
+            <div class="essay-box" data-essay-id="1" data-essay-link="EssayContent/essay1.html">
+              <img src="images/essay1.jpg" alt="Essay 1 Image" />
+              <h3>The Wonders of Space</h3>
+            </div>
+            <div class="essay-box" data-essay-id="2" data-essay-link="EssayContent/essay2.html">
+              <img src="images/essay2.jpg" alt="Essay 2 Image" />
+              <h3>The Beauty of Nature</h3>
+            </div>
+            <div class="essay-box" data-essay-id="3" data-essay-link="EssayContent/essay3.html">
+              <img src="images/essay3.jpg" alt="Essay 3 Image" />
+              <h3>The Evolution of Technology</h3>
+            </div>
+            <div class="essay-box" data-essay-id="4" data-essay-link="EssayContent/essay4.html">
+              <img src="images/essay4.jpg" alt="Essay 4 Image" />
+              <h3>Advancements in Medicine</h3>
+            </div>
+            <div class="essay-box" data-essay-id="5" data-essay-link="EssayContent/essay5.html">
+              <img src="images/essay5.jpg" alt="Essay 5 Image" />
+              <h3>Climate Change and Its Impact</h3>
+            </div>
+            <div class="essay-box" data-essay-id="6" data-essay-link="EssayContent/essay6.html">
+              <img src="images/essay5.jpg" alt="Essay 6 Image" />
+              <h3>Climate Change and Its Impact</h3>
+            </div>
+            <div class="essay-box" data-essay-id="7" data-essay-link="EssayContent/essay7.html">
+              <img src="images/essay5.jpg" alt="Essay 7 Image" />
+              <h3>Climate Change and Its Impact</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- New section for essay description -->
+    <section id="essay-text" class="section">
+      <div class="section-content">
+        <h2>Essay Page</h2>
+        <div id="selected-essay-content">
+          <h3 id="selected-essay-title">About</h3>
+          <p id="selected-essay-body">Here you can read about different topics.</p>
+        </div>
       </div>
     </section>
   </main>
+
+  <div id="essay-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2 id="modal-title"></h2>
+      <p id="modal-body"></p>
+    </div>
+  </div>
 
   <footer>
     <p>&copy; 2025 Educational Journey. All rights reserved.</p>
