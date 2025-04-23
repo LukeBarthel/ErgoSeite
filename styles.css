@@ -387,6 +387,37 @@ footer {
   header {
     flex-direction: column;
     text-align: center;
+    padding: 1.5rem; /* Add more padding for spacing */
+  }
+
+  .header-content {
+    flex-direction: row; /* Arrange items in a row */
+    gap: 1.5rem; /* Increase spacing between elements */
+    justify-content: space-around; /* Spread items across the header */
+    align-items: center;
+  }
+
+  nav ul {
+    flex-direction: row; /* Arrange navigation links in a row */
+    gap: 1rem; /* Add spacing between links */
+    padding: 0;
+  }
+
+  .user-dropdown {
+    margin-left: 0; /* Center dropdown */
+    order: 2; /* Place dropdown at the end */
+    align-self: center; /* Align dropdown in the center */
+  }
+
+  .explore-links {
+    flex-direction: row; /* Arrange buttons in a row */
+    gap: 1rem; /* Add spacing between buttons */
+    justify-content: center; /* Center buttons */
+  }
+
+  .action-btn {
+    width: auto; /* Allow buttons to adjust width dynamically */
+    text-align: center;
   }
 
   .header-content {
