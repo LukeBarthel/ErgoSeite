@@ -5,12 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Educational Journey - Home</title>
   <link rel="stylesheet" href="styles.css" />
-  <script>
-    // Redirect to the sign-in page if the user is not logged in
-    if (localStorage.getItem('loggedIn') !== 'true') {
-      window.location.href = 'signin.html';
-    }
-  </script>
 </head>
 <body>
     <header>
@@ -27,12 +21,11 @@
           <!-- User Dropdown Menu -->
           <div class="user-dropdown">
             <button id="dropdownBtn" class="dropdown-btn">
-              <span id="usernameDisplay">Username</span>
+              <span id="usernameDisplay">Dein Fortschritt</span>
             </button>
             <div id="dropdownMenu" class="dropdown-content">
               <p id="progress-stats">Progress: 50%</p>
               <hr>
-              <a href="#" id="signoutBtn">Sign Out</a>
             </div>
           </div>
         </div>
@@ -58,23 +51,5 @@
   <footer>
     <p>&copy; 2025 Educational Journey. All rights reserved.</p>
   </footer>
-</body>
-<script>
-    // Set the username in the dropdown header
-    const usernameDisplay = document.getElementById('usernameDisplay');
-    const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
-      usernameDisplay.textContent = currentUser;
-    }
-  
-    // Handle sign out
-    const signoutBtn = document.getElementById('signoutBtn');
-    signoutBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      // Clear the login flag and username, then redirect to the sign in page.
-      localStorage.removeItem('loggedIn');
-      localStorage.removeItem('currentUser');
-      window.location.href = 'signin.html';
-    });
-  </script>  
+</body> 
 </html>
