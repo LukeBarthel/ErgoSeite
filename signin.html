@@ -84,101 +84,39 @@
 
       <button type="submit" class="action-btn">Sign In</button>
       <p id="signin-error" class="error-message"></p>
-      <p class="toggle-link">Don't have an account? <a href="#" id="show-register">Register</a></p>
-    </form>
-    
-    <!-- Registration Form -->
-    <form id="register-form" style="display: none;">
-      <label for="register-username">Username</label>
-      <input type="text" id="register-username" required />
-
-      <label for="register-password">Password</label>
-      <input type="password" id="register-password" required />
-
-      <button type="submit" class="action-btn">Register</button>
-      <p id="register-error" class="error-message"></p>
-      <p class="toggle-link">Already have an account? <a href="#" id="show-signin">Sign In</a></p>
     </form>
   </div>
 
   <script>
-    // Toggle between Sign In and Registration forms
     const signinForm = document.getElementById('signin-form');
-    const registerForm = document.getElementById('register-form');
-    const showRegisterLink = document.getElementById('show-register');
     const showSigninLink = document.getElementById('show-signin');
     const formTitle = document.getElementById('form-title');
     const signinError = document.getElementById('signin-error');
-    const registerError = document.getElementById('register-error');
-
-    showRegisterLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      signinForm.style.display = 'none';
-      registerForm.style.display = 'flex';
-      formTitle.textContent = 'Register';
-      signinError.textContent = '';
-    });
-
-    showSigninLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      registerForm.style.display = 'none';
-      signinForm.style.display = 'flex';
-      formTitle.textContent = 'Sign In';
-      registerError.textContent = '';
-    });
-
-    // Utility functions to load/save accounts from/to localStorage
-    function loadAccounts() {
-      const accounts = localStorage.getItem('accounts');
-      return accounts ? JSON.parse(accounts) : {};
-    }
-
-    function saveAccounts(accounts) {
-      localStorage.setItem('accounts', JSON.stringify(accounts));
-    }
 
     // Handle sign in form submission
-    signinForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const username = document.getElementById('signin-username').value.trim();
-      const password = document.getElementById('signin-password').value;
+    document.getElementById('signin-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  const username = document.getElementById('signin-username').value.trim();
+  const password = document.getElementById('signin-password').value;
 
-      const accounts = loadAccounts();
-
+  fetch('accounts.json')
+    .then(response => response.json())
+    .then(accounts => {
       if (!accounts[username]) {
-        signinError.textContent = 'User unknown. Please register.';
+        alert('User unknown. Please register.');
       } else if (accounts[username] !== password) {
-        signinError.textContent = 'Password is incorrect.';
+        alert('Password is incorrect.');
       } else {
-        // Successful sign in
         localStorage.setItem('loggedIn', 'true');
         localStorage.setItem('currentUser', username);
-        window.location.href = 'index.html'; // Redirect to Homepage
+        window.location.href = 'index.html'; // Redirect to homepage
       }
+    })
+    .catch(error => {
+      console.error('Error fetching accounts:', error);
     });
-
-    // Handle registration form submission
-    registerForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const username = document.getElementById('register-username').value.trim();
-      const password = document.getElementById('register-password').value;
-
-      const accounts = loadAccounts();
-
-      if (accounts[username]) {
-        registerError.textContent = 'An account with that username already exists.';
-      } else {
-        // Register new account
-        accounts[username] = password;
-        saveAccounts(accounts);
-        alert('Registration successful! Please sign in.');
-        registerForm.reset();
-        // Switch back to Sign In mode
-        registerForm.style.display = 'none';
-        signinForm.style.display = 'flex';
-        formTitle.textContent = 'Sign In';
-      }
-    });
+});
   </script>
 </body>
 </html>

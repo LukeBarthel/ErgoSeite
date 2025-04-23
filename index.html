@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Educational Journey - Home</title>
   <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Redirect to the sign-in page if the user is not logged in
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      window.location.href = 'signin.html';
+    }
+  </script>
 </head>
 <body>
     <header>
