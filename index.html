@@ -24,10 +24,23 @@
               <span id="usernameDisplay">Dein Fortschritt</span>
             </button>
             <div id="dropdownMenu" class="dropdown-content">
-              <p id="progress-stats">Progress: 50%</p>
+              <div class="donut-charts-wrapper">
+                <div class="donut-chart-container">
+                  <canvas id="quizChart" width="120" height="120"></canvas>
+                  <div class="donut-center" id="quizChartCenter">0%<br>Quiz</div>
+                </div>
+                <div class="donut-chart-container">
+                  <canvas id="indexCardsChart" width="120" height="120"></canvas>
+                  <div class="donut-center" id="indexCardsChartCenter">0%<br>Cards</div>
+                </div>
+                <div class="donut-chart-container">
+                  <canvas id="essayChart" width="120" height="120"></canvas>
+                  <div class="donut-center" id="essayChartCenter">0%<br>Essay</div>
+                </div>
+              </div>
               <hr>
             </div>
-          </div>
+          </div>          
         </div>
       </header>
 
@@ -51,5 +64,7 @@
   <footer>
     <p>&copy; 2025 Educational Journey. All rights reserved.</p>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
 </body> 
 </html>

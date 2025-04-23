@@ -95,29 +95,117 @@ document.addEventListener("DOMContentLoaded", () => {
   updateProgressDisplay();
 });
 
-function updateProgressDisplay() {
-  // Read progress values from local storage (defaulting to zero if not set)
-  const quizProgress = parseInt(localStorage.getItem("quizProgress") || "0");
-  const indexCardsProgress = parseInt(localStorage.getItem("indexCardsProgress") || "0");
-  // For essays, you might use text length; adjust the metric as you see fit
-  const essayProgress = parseInt(localStorage.getItem("essayProgress") || "0");
+// Global variables for Chart.js chart instances
+let quizChart, indexCardsChart, essayChart;
 
-  // Combine these into an overall progress percentage.
-  // The weighting here is arbitrary – adjust the math based on your desired scoring.
-  // For example, assume:
-  //    Quiz: 100 is complete,
-  //    Each flipped card might add 10% (if you have 10 cards),
-  //    Essay: every 10 characters counts as 1%.
-  const essayPercent = Math.min((essayProgress / 10), 100);
-  const indexCardsPercent = Math.min(indexCardsProgress * 10, 100);
+document.addEventListener("DOMContentLoaded", () => {
+  // Existing logic for quizzes, index cards, and essays (your event listeners, etc.)
+  // ... [Your existing code for quiz, essay, and index card interactions] ...
 
-  // For simplicity, average the three progress values:
-  const overallProgress = (quizProgress + indexCardsPercent + essayPercent) / 3;
+  // Initialize donut charts once Chart.js is loaded and DOM is ready
+  initDonutCharts();
+  updateProgressDisplay();
+});
 
-  // Update the progress display in the user dropdown if it exists
-  const progressStats = document.getElementById("progress-stats");
-  if (progressStats) {
-    progressStats.textContent = "Progress: " + overallProgress.toFixed(0) + "%";
+function initDonutCharts() {
+  // Create chart objects if the corresponding canvas elements exist
+  const quizCtx = document.getElementById("quizChart")?.getContext("2d");
+  const indexCardsCtx = document.getElementById("indexCardsChart")?.getContext("2d");
+  const essayCtx = document.getElementById("essayChart")?.getContext("2d");
+
+  if (quizCtx) {
+    quizChart = new Chart(quizCtx, {
+      type: "doughnut",
+      data: {
+        // Initially zero progress
+        datasets: [{
+          data: [0, 100],
+          backgroundColor: ["var(--btn-bg)", "#e0e0e0"],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: "70%",
+        responsive: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        }
+      }
+    });
+  }
+
+  if (indexCardsCtx) {
+    indexCardsChart = new Chart(indexCardsCtx, {
+      type: "doughnut",
+      data: {
+        datasets: [{
+          data: [0, 100],
+          backgroundColor: ["var(--btn-bg)", "#e0e0e0"],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: "70%",
+        responsive: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        }
+      }
+    });
+  }
+
+  if (essayCtx) {
+    essayChart = new Chart(essayCtx, {
+      type: "doughnut",
+      data: {
+        datasets: [{
+          data: [0, 100],
+          backgroundColor: ["var(--btn-bg)", "#e0e0e0"],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: "70%",
+        responsive: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        }
+      }
+    });
   }
 }
+
+function updateProgressDisplay() {
+  // Read progress values from local storage (defaults if not set)
+  const quizProgress = parseInt(localStorage.getItem("quizProgress") || "0");
+  // For index cards we stored the count (each flip gives 10% progress)
+  const indexCardsCount = parseInt(localStorage.getItem("indexCardsProgress") || "0");
+  const indexCardsPercent = Math.min(indexCardsCount * 10, 100);
+  // Essay progress is text length divided by 10, clamped to 100%
+  const essayProgressValue = parseInt(localStorage.getItem("essayProgress") || "0");
+  const essayPercent = Math.min(essayProgressValue / 10, 100);
+
+  // Update donut charts if they have been initialized
+  if (quizChart) {
+    quizChart.data.datasets[0].data = [quizProgress, 100 - quizProgress];
+    quizChart.update();
+    document.getElementById("quizChartCenter").innerHTML = `${quizProgress}%<br>Quiz`;
+  }
+
+  if (indexCardsChart) {
+    indexCardsChart.data.datasets[0].data = [indexCardsPercent, 100 - indexCardsPercent];
+    indexCardsChart.update();
+    document.getElementById("indexCardsChartCenter").innerHTML = `${indexCardsPercent}%<br>Cards`;
+  }
+
+  if (essayChart) {
+    essayChart.data.datasets[0].data = [essayPercent, 100 - essayPercent];
+    essayChart.update();
+    document.getElementById("essayChartCenter").innerHTML = `${essayPercent}%<br>Essay`;
+  }
+}
+
   
