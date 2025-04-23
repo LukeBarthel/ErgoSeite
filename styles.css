@@ -387,13 +387,14 @@ footer {
   header {
     flex-direction: column;
     text-align: center;
-    padding: 1.5rem; /* Add more padding for spacing */
+    padding: 1rem; /* Adjust padding for better spacing */
   }
 
   .header-content {
     flex-direction: row; /* Arrange items in a row */
-    gap: 1.5rem; /* Increase spacing between elements */
-    justify-content: space-around; /* Spread items across the header */
+    flex-wrap: wrap; /* Allow wrapping to prevent stacking */
+    gap: 1rem; /* Add spacing between elements */
+    justify-content: space-between; /* Spread items across the header */
     align-items: center;
   }
 
@@ -406,13 +407,14 @@ footer {
   .user-dropdown {
     margin-left: 0; /* Center dropdown */
     order: 2; /* Place dropdown at the end */
-    align-self: center; /* Align dropdown in the center */
+    align-self: flex-start; /* Align dropdown to the top */
   }
 
   .explore-links {
     flex-direction: row; /* Arrange buttons in a row */
     gap: 1rem; /* Add spacing between buttons */
     justify-content: center; /* Center buttons */
+    flex-wrap: wrap; /* Allow wrapping if needed */
   }
 
   .action-btn {
