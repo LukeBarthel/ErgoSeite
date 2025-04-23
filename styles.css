@@ -86,6 +86,16 @@ header h1 {
   margin: 0;
 }
 
+header h1 a {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit color from parent */
+  display: inline-block;
+}
+
+header h1 a:visited {
+  color: inherit; /* Ensure visited links don't change color */
+}
+
 nav ul {
   display: flex;
   gap: 1rem;
