@@ -381,3 +381,91 @@ footer {
   text-align: center;
   color: var(--text-color);
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .section {
+    padding: 1rem;
+  }
+
+  .explore-links {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+    height: auto;
+  }
+
+  .essay-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .essay-box {
+    width: 90%;
+    height: auto;
+  }
+
+  .donut-charts-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .donut-chart-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  nav a {
+    font-size: 0.9rem;
+  }
+
+  .action-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .section h2 {
+    font-size: 1.2rem;
+  }
+
+  .essay-box h3 {
+    font-size: 1rem;
+  }
+
+  .donut-center {
+    font-size: 0.8rem;
+  }
+}
