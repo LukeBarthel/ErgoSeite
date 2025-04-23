@@ -392,40 +392,29 @@ footer {
   .header-content {
     flex-direction: column;
     gap: 1rem;
+    align-items: center;
   }
 
   nav ul {
     flex-direction: column;
     gap: 0.5rem;
+    padding: 0;
   }
 
-  .section {
-    padding: 1rem;
+  .user-dropdown {
+    margin-left: 0; /* Align dropdown to the center */
+    order: 2; /* Place dropdown below navigation */
   }
 
   .explore-links {
     flex-direction: column;
     gap: 1rem;
-  }
-
-  .cards-container {
-    flex-direction: column;
     align-items: center;
   }
 
-  .card {
-    width: 90%;
-    height: auto;
-  }
-
-  .essay-grid {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .essay-box {
-    width: 90%;
-    height: auto;
+  .action-btn {
+    width: 90%; /* Make buttons full-width on smaller screens */
+    text-align: center;
   }
 
   .donut-charts-wrapper {
@@ -467,5 +456,13 @@ footer {
 
   .donut-center {
     font-size: 0.8rem;
+  }
+
+  .header-content {
+    align-items: flex-start; /* Align content to the left */
+  }
+
+  .user-dropdown {
+    align-self: flex-start; /* Move dropdown to the left */
   }
 }
