@@ -658,11 +658,24 @@ footer {
     font-size: 0.8rem;
   }
 
+  header {
+    text-align: center; /* Zentriert den gesamten Header-Inhalt */
+  }
+
   .header-content {
-    align-items: flex-start; /* Align content to the left */
+    flex-direction: column; /* Ordnet die Elemente vertikal an */
+    align-items: center; /* Zentriert die Elemente horizontal */
+    gap: 1rem; /* Fügt Abstand zwischen den Elementen hinzu */
+  }
+
+  nav ul {
+    flex-direction: column; /* Ordnet die Navigationselemente vertikal an */
+    gap: 0.5rem; /* Fügt Abstand zwischen den Links hinzu */
+    padding: 0;
   }
 
   .user-dropdown {
-    align-self: flex-start; /* Move dropdown to the left */
+    align-self: center; /* Zentriert das Dropdown-Menü */
+    margin-top: 1rem; /* Fügt Abstand über dem Dropdown hinzu */
   }
 }
