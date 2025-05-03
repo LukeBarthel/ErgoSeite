@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Educational Journey - Index Cards</title>
+  <title>Ergo Lerntool - Index Cards</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
     <div class="header-content">
-      <h1><a href="index.html">Educational Journey</a></h1>
+      <h1><a href="index.html">Ergo Lerntool</a></h1>
       <nav>
         <ul>
           <li><a href="quizzes.html">Quizzes</a></li>
-          <li><a href="essays.html">Essays</a></li>
+          <li><a href="essays.html">Sachtexte</a></li>
         </ul>
       </nav>
     </div>
@@ -22,27 +22,112 @@
   <main>
     <section id="index-cards" class="section">
       <div class="section-content">
-        <h2>Interactive Index Cards</h2>
+        <h2>Interaktive Karteikarten</h2>
+        <div class="popup" id="card-popup">
+          <h3 style="margin-bottom: 2%;">Add content</h3>
+          <input type="text" class="text-field" id="input-front" placeholder="Input front"/>
+          <input type="text" class="text-field" id="input-back" placeholder="Input back"/>
+          <a class="action-btn" onclick="Close_Popup()">Cancel</a>
+          <a class="action-btn" onclick="Confirm_Card()">Confirm</a>
+        </div>
+        <div class="navigation-container">
+          <div id="previous-button" onclick="Previous_Card()">
+            <svg viewBox="0 0 100 100">
+              <path d="M 80,20 L 40, 50 Q 35, 55, 40, 60 L 80, 90 Z" fill="#ff5a5f" />
+            </svg>
+          </div>
+        
+          <a id="card-index">1</a>
+        
+          <div id="next-button" onclick="Next_Card()">
+            <svg viewBox="0 0 100 100">
+              <path d="M 40,20 L 80,50 Q 85,55, 80,60 L 40,90 Z" fill="#ff5a5f" />
+            </svg>
+          </div>
+        </div>
         <div class="cards-container">
           <!-- Example of a single index card -->
-          <div class="card">
+          <div class="card active-card" onclick="Flip_Card(this)">
             <div class="card-inner">
               <div class="card-face card-front">
-                <p>What is HTML?</p>
+                <p>Berufliche Identität</p>
               </div>
               <div class="card-face card-back">
-                <p>HyperText Markup Language</p>
+                <p>Der Prozess, in dem angehende Ergotherapeutinnen und Ergotherapeuten ihr Selbstbild als Fachperson entwickeln. Dies umfasst die bewusste Auseinandersetzung mit eigenen Werten, Ressourcen sowie persönlichen Stärken und Grenzen und führt zu einem authentischen und reflektierten Selbstverständnis im beruflichen Kontext.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card inactive-card" onclick="Flip_Card(this)">
+            <div class="card-inner">
+              <div class="card-face card-front">
+                <p>Selbstreflexion Definition</p>
+              </div>
+              <div class="card-face card-back">
+                <p>Eine kontinuierliche, kritische Bewertung des eigenen Handelns und Denkens. In der Ergotherapie hilft Selbstreflexion, eigene Kompetenzen und Entwicklungsbedarfe zu erkennen, aus Fehlern zu lernen und daraus Verbesserungspotenziale für den therapeutischen Alltag abzuleiten.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card inactive-card" onclick="Flip_Card(this)">
+            <div class="card-inner">
+              <div class="card-face card-front">
+                <p>Klientenzentrierung</p>
+              </div>
+              <div class="card-face card-back">
+                <p>Ein Grundprinzip der ergotherapeutischen Praxis, bei dem die individuellen Bedürfnisse, Lebenskontexte und Ziele der Klientinnen und Klienten im Mittelpunkt aller Interventionen stehen. Diese Perspektive sichert eine passgenaue Therapie, die die Teilhabe und Lebensqualität nachhaltig verbessert.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card inactive-card" onclick="Flip_Card(this)">
+            <div class="card-inner">
+              <div class="card-face card-front">
+                <p>Interprofessionelle Zusammenarbeit</p>
+              </div>
+              <div class="card-face card-back">
+                <p>Die kooperative Arbeit und der Austausch zwischen verschiedenen Gesundheitsberufen. Durch den Dialog und die Zusammenarbeit mit Kolleginnen und Kollegen aus angrenzenden Disziplinen können Ergotherapeutinnen und Ergotherapeuten neue Perspektiven gewinnen, ihre fachliche Expertise erweitern und die ganzheitliche Versorgung der Klientinnen und Klienten optimieren.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card inactive-card" onclick="Flip_Card(this)">
+            <div class="card-inner">
+              <div class="card-face card-front">
+                <p>Lebenslanges Lernen</p>
+              </div>
+              <div class="card-face card-back">
+                <p>Ein kontinuierlicher Prozess der Weiterbildung und Kompetenzentwicklung, der es ermöglicht, sich an neue wissenschaftliche Erkenntnisse, technologische Entwicklungen und veränderte gesellschaftliche Anforderungen anzupassen. Dieser Ansatz ist wesentlich, um die professionelle Perspektive fortlaufend zu erweitern und zukunftsorientiert zu handeln.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card inactive-card" onclick="Flip_Card(this)">
+            <div class="card-inner">
+              <div class="card-face card-front">
+                <p>Handlungskompetenz</p>
+              </div>
+              <div class="card-face card-back">
+                <p>Die Fähigkeit, theoretisches Wissen, methodische Fertigkeiten und soziale Kompetenzen situationsgerecht und eigenständig in praktischen Therapieeinheiten anzuwenden. Diese Kompetenz bildet die Grundlage dafür, individuelle Herausforderungen im therapeutischen Prozess erfolgreich zu bewältigen.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card inactive-card" onclick="Flip_Card(this)">
+            <div class="card-inner">
+              <div class="card-face card-front">
+                <p>Fort- und Weiterbildung</p>
+              </div>
+              <div class="card-face card-back">
+                <p>Die gezielte Aneignung von neuem Fachwissen sowie das Erlernen neuer Techniken und Methoden im Verlauf der beruflichen Laufbahn. Diese kontinuierliche Bildungsbereitschaft ist unerlässlich, um den ständigen Veränderungen im Gesundheitswesen gerecht zu werden und die eigene berufliche Entwicklung nachhaltig voranzutreiben.</p>
               </div>
             </div>
           </div>
           <!-- Duplicate this block to add more cards -->
         </div>
+        <!--<a class="action-btn" onclick="Add_Index_Card()">Karteikarte hinzufügen</a>-->
+        <a class="action-btn" onclick="Known()">Das wusste Ich</a>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Educational Journey. All rights reserved.</p>
+    <p>&copy; 2025 Ergo Lerntool. All rights reserved.</p>
+    <p>Silly Goose inc.</p>
   </footer>
   <script src="script.js"></script>
 </body>

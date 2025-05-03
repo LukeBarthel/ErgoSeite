@@ -3,34 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Educational Journey - Quizzes</title>
+  <title>Ergo Lerntool - Essays</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
     <div class="header-content">
-      <h1><a href="index.html">Educational Journey</a></h1>
+      <h1><a href="index.html">Ergo Lerntool</a></h1>
       <nav>
         <ul>
-          <li><a href="index-cards.html">Index Cards</a></li>
-          <li><a href="essays.html">Essays</a></li>
+          <li><a href="essays.html">Sachtexte</a></li>
+          <li><a href="index-cards.html">Karteikarten</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main>
+    <section id="quiz-text" class="section">
+      <div class="section-content">
+        <h2>Quizzes</h2>
+        <div id="selected-quiz-content">
+          <p id="selected-quiz-body">Hier kannst du das Wissen, dass du dir in den Sachtexten angeeignet hast auf die Probe stellen. Jedes Quiz gehört zu einem spezifischen Sachtext.</p>
+        </div>
+      </div>
+    </section>
+    
     <section id="quizzes" class="section">
       <div class="section-content">
-        <h2>Engaging Quizzes</h2>
-        <button id="start-quiz" class="action-btn">Start Quiz</button>
-        <div id="quiz-container"></div>
+        <h2>Quiz Auswahl</h2>
+        <div class="quiz-selector-container">
+          <div class="quiz-grid scrollable">
+            <div class="quiz-box" data-quiz-id="1" data-quiz-link="Quizzes/quiz1.html">
+              <img src="images/quiz1.jpg" alt="Quiz 1 Image"/>
+              <h3>Quiz zu Sachtext 1</h3>
+              <h3>Letzte Bewertung:</h3>
+            </div>
+            <div class="quiz-box" data-quiz-id="2" data-quiz-link="Quizzes/quiz2.html">
+              <img src="images/quiz2.jpg" alt="Quiz 2 Image" />
+              <h3>Quiz</h3>
+              <h3>Letzte Bewertung:</h3>
+            </div>
+            <div class="quiz-box" data-quiz-id="3" data-quiz-link="Quizzes/quiz3.html">
+              <img src="images/quiz3.jpg" alt="Quiz 3 Image" />
+              <h3>Quiz</h3>
+              <h3>Letzte Bewertung:</h3>
+            </div>
+            <div class="quiz-box" data-quiz-id="4" data-quiz-link="Quizzes/quiz4.html">
+              <img src="images/quiz4.jpg" alt="Quiz 4 Image" />
+              <h3>Quiz</h3>
+              <h3>Letzte Bewertung:</h3>
+            </div>
+            <div class="quiz-box" data-quiz-id="5" data-quiz-link="Quizzes/quiz5.html">
+              <img src="images/quiz5.jpg" alt="Quiz 5 Image" />
+              <h3>Quiz</h3>
+              <h3>Letzte Bewertung:</h3>
+            </div>
+            <div class="quiz-box" data-quiz-id="6" data-quiz-link="Quizzes/quiz6.html">
+              <img src="images/quiz6.jpg" alt="Quiz 6 Image" />
+              <h3>Quiz</h3>
+              <h3>Letzte Bewertung:</h3>
+            </div>
+            <div class="quiz-box" data-quiz-id="7" data-quiz-link="Quizzes/quiz7.html">
+              <img src="images/quiz7.jpg" alt="Quiz 7 Image" />
+              <h3>Quiz</h3>
+              <h3>Letzte Bewertung:</h3>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
+  <div id="essay-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2 id="modal-title"></h2>
+      <p id="modal-body"></p>
+    </div>
+  </div>
+
   <footer>
-    <p>&copy; 2025 Educational Journey. All rights reserved.</p>
+    <p>&copy; 2025 Ergo Lerntool. All rights reserved.</p>
+    <p>Silly Goose inc.</p>
   </footer>
   <script src="script.js"></script>
 </body>

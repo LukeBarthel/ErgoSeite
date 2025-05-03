@@ -1,251 +1,258 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const quizContainer = document.getElementById("quiz-container");
-    const startQuizButton = document.getElementById("start-quiz");
-  
-    if (startQuizButton) {
-      startQuizButton.addEventListener("click", () => {
-        quizContainer.innerHTML = `
-          <div class="quiz-question">
-            <p>Question 1: What is 2 + 2?</p>
-            <button onclick="alert('Correct!')">4</button>
-            <button onclick="alert('Incorrect. Try again!')">5</button>
-          </div>
-        `;
-      });
+    if (document.body.contains(document.querySelector("#index-cards"))) {
+        const knownCardsKey = 'KnownCards'; // Key for local storage
+        const knownCards = JSON.parse(localStorage.getItem(knownCardsKey)) || []; // Retrieve the list of known cards
+
+        // Loop through all cards and add the 'known' class to known cards
+        const cards = document.querySelectorAll(".cards-container .card");
+        cards.forEach((card, index) => {
+            if (knownCards.includes(index + 1)) { // Card indices are 1-based
+                card.classList.add("known");
+            }
+        });
     }
-  });
-
-document.addEventListener("DOMContentLoaded", () => {
-  // --- QUIZ PAGE LOGIC ---
-  const startQuizButton = document.getElementById("start-quiz");
-  const quizContainer = document.getElementById("quiz-container");
-
-  if (startQuizButton && quizContainer) {
-    startQuizButton.addEventListener("click", () => {
-      quizContainer.innerHTML = `
-        <div class="quiz-question">
-          <p>Question 1: What is 2 + 2?</p>
-          <button id="option-correct">4</button>
-          <button id="option-incorrect">5</button>
-        </div>
-      `;
-
-      // Bind handlers for the new quiz buttons
-      const correctBtn = document.getElementById("option-correct");
-      const incorrectBtn = document.getElementById("option-incorrect");
-
-      correctBtn.addEventListener("click", () => {
-        alert("Correct!");
-        // Here, for example, we set quiz progress to 100 (could be a percentage)
-        localStorage.setItem("quizProgress", "100");
-        updateProgressDisplay();
-      });
-
-      incorrectBtn.addEventListener("click", () => {
-        alert("Incorrect. Try again!");
-      });
-    });
-  }
-
-  // --- ESSAY PAGE LOGIC ---
-  const essayInput = document.getElementById("essay-input");
-  if (essayInput) {
-    // Restore saved essay text if available
-    const savedEssay = localStorage.getItem("essayInput");
-    if (savedEssay) {
-      essayInput.value = savedEssay;
-    }
-
-    // Save progress on input
-    essayInput.addEventListener("input", (e) => {
-      localStorage.setItem("essayInput", e.target.value);
-      // Option: use text length or completion status as a progress metric
-      localStorage.setItem("essayProgress", e.target.value.length);
-      updateProgressDisplay();
-    });
-  }
-
-  // --- INDEX CARDS LOGIC ---
-  const cardElements = document.querySelectorAll(".card");
-  if (cardElements.length) {
-    // You can store flip state of each card in an array (one boolean per card)
-    let cardsProgress = JSON.parse(localStorage.getItem("cardsProgress") || "[]");
-
-    // Restore flip state if the user had already interacted with the cards
-    cardElements.forEach((card, index) => {
-      const cardInner = card.querySelector(".card-inner");
-      if (cardsProgress[index]) {
-        cardInner.classList.add("flipped");
-      }
-      card.addEventListener("click", () => {
-        // Toggle flip by adding/removing a CSS class
-        cardInner.classList.toggle("flipped");
-        // Update progress state for this card
-        cardsProgress[index] = !cardsProgress[index];
-        localStorage.setItem("cardsProgress", JSON.stringify(cardsProgress));
-        // Option: count how many cards have been flipped to represent progress
-        const flippedCount = cardsProgress.filter((status) => status).length;
-        localStorage.setItem("indexCardsProgress", flippedCount);
-        updateProgressDisplay();
-      });
-    });
-  }
-
-  // Update progress when the page loads by reading from local storage
-  updateProgressDisplay();
 });
 
-// Global variables for Chart.js chart instances
-let quizChart, indexCardsChart, essayChart;
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Existing logic for quizzes, index cards, and essays (your event listeners, etc.)
-  // ... [Your existing code for quiz, essay, and index card interactions] ...
+    if(document.body.contains(document.querySelector(".user-dropdown"))) {
+        const Quiz_Amount = 7;
+        let Quiz_Percentages = 0;
+        for (let i = 1; i <= Quiz_Amount; i++) {
+            Quiz_Percentages += localStorage.getItem('Score' + i) ? parseInt(localStorage.getItem('Score' + i)) : 0; // Add the score for each quiz
+        }
+        const Quiz_Percentage = Quiz_Percentages ? parseInt(Quiz_Percentages / Quiz_Amount) : 0;
+        const Index_Amount = 7;
+        const Index_Percentage = localStorage.getItem('KnownCards') ? parseInt(JSON.parse(localStorage.getItem('KnownCards')).length / Index_Amount * 100) : 0; // Calculate the percentage of known cards
+        const Essay_Amount = 7;
+        let Essay_Percentages = 0;
+        for (let i = 1; i <= Essay_Amount; i++) {
+            const Scroll_Progress = localStorage.getItem('HighestScrollPosition_' + i);
+            const Max_Scroll = localStorage.getItem('MaxScrollPosition_' + i);
+            if (Scroll_Progress && Max_Scroll) {
+                Essay_Percentages += parseInt(Scroll_Progress) / parseInt(Max_Scroll) * 100;
+            }
+        }
+        const Essay_Percentage = parseInt(Essay_Percentages / Essay_Amount);
 
-  // Initialize donut charts once Chart.js is loaded and DOM is ready
-  initDonutCharts();
-  updateProgressDisplay();
+        // Function to create a donut chart
+    function createDonutChart(canvasId, percentage, centerId, label) {
+        const ctx = document.getElementById(canvasId).getContext("2d");
+        new Chart(ctx, {
+            type: "doughnut",
+            data: {
+                datasets: [
+                    {
+                        data: [percentage, 100 - percentage],
+                        backgroundColor: ["#ff5a5f", "#e0e0e0"], // Colors for the chart
+                        borderWidth: 0,
+                    },
+                ],
+            },
+            options: {
+                cutout: "70%", // Creates the donut effect
+                plugins: {
+                    tooltip: { enabled: false }, // Disable tooltips
+                },
+            },
+        });
+
+        // Update the center text
+        const centerElement = document.getElementById(centerId);
+        centerElement.innerHTML = `${percentage}%<br>${label}`;
+    }
+
+    // Create the charts
+    createDonutChart("quizChart", Quiz_Percentage, "quizChartCenter", "Quiz");
+    createDonutChart("indexCardsChart", Index_Percentage, "indexCardsChartCenter", "Karten");
+    createDonutChart("essayChart", Essay_Percentage, "essayChartCenter", "Texte");
+    }
 });
 
-function initDonutCharts() {
-  // Create chart objects if the corresponding canvas elements exist
-  const quizCtx = document.getElementById("quizChart")?.getContext("2d");
-  const indexCardsCtx = document.getElementById("indexCardsChart")?.getContext("2d");
-  const essayCtx = document.getElementById("essayChart")?.getContext("2d");
+document.addEventListener("DOMContentLoaded", () => {
+    // Check if the user is on an essay page
+    if (document.body.contains(document.querySelector(".essay-main"))) {
+        const essayId = document.querySelector(".essay-main").getAttribute("essay-id"); // Use the essay title as the key
+        localStorage.setItem('MaxScrollPosition_' + essayId, document.body.scrollHeight); // Store the maximum scroll position
+        let highestScroll = parseInt(localStorage.getItem(`ScrollPosition_${essayId}`)) || 0;
 
-  if (quizCtx) {
-    quizChart = new Chart(quizCtx, {
-      type: "doughnut",
-      data: {
-        // Initially zero progress
-        datasets: [{
-          data: [0, 100],
-          backgroundColor: ["var(--btn-bg)", "#e0e0e0"],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        cutout: "70%",
-        responsive: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: { enabled: false }
+        // Restore the scroll position if it exists
+        if (highestScroll > 0) {
+            window.scrollTo(0, highestScroll);
         }
-      }
-    });
-  }
 
-  if (indexCardsCtx) {
-    indexCardsChart = new Chart(indexCardsCtx, {
-      type: "doughnut",
-      data: {
-        datasets: [{
-          data: [0, 100],
-          backgroundColor: ["var(--btn-bg)", "#e0e0e0"],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        cutout: "70%",
-        responsive: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: { enabled: false }
-        }
-      }
-    });
-  }
-
-  if (essayCtx) {
-    essayChart = new Chart(essayCtx, {
-      type: "doughnut",
-      data: {
-        datasets: [{
-          data: [0, 100],
-          backgroundColor: ["var(--btn-bg)", "#e0e0e0"],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        cutout: "70%",
-        responsive: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: { enabled: false }
-        }
-      }
-    });
-  }
-}
-
-function updateProgressDisplay() {
-  // Read progress values from local storage (defaults if not set)
-  const quizProgress = parseInt(localStorage.getItem("quizProgress") || "0");
-  // For index cards we stored the count (each flip gives 10% progress)
-  const indexCardsCount = parseInt(localStorage.getItem("indexCardsProgress") || "0");
-  const indexCardsPercent = Math.min(indexCardsCount * 10, 100);
-  // Essay progress is text length divided by 10, clamped to 100%
-  const essayProgressValue = parseInt(localStorage.getItem("essayProgress") || "0");
-  const essayPercent = Math.min(essayProgressValue / 10, 100);
-
-  // Update donut charts if they have been initialized
-  if (quizChart) {
-    quizChart.data.datasets[0].data = [quizProgress, 100 - quizProgress];
-    quizChart.update();
-    document.getElementById("quizChartCenter").innerHTML = `${quizProgress}%<br>Quiz`;
-  }
-
-  if (indexCardsChart) {
-    indexCardsChart.data.datasets[0].data = [indexCardsPercent, 100 - indexCardsPercent];
-    indexCardsChart.update();
-    document.getElementById("indexCardsChartCenter").innerHTML = `${indexCardsPercent}%<br>Cards`;
-  }
-
-  if (essayChart) {
-    essayChart.data.datasets[0].data = [essayPercent, 100 - essayPercent];
-    essayChart.update();
-    document.getElementById("essayChartCenter").innerHTML = `${essayPercent}%<br>Essay`;
-  }
-}
+        // Listen for scroll events
+        window.addEventListener("scroll", () => {
+            const currentScroll = window.scrollY;
+            localStorage.setItem(`ScrollPosition_${essayId}`, currentScroll);
+            if (currentScroll > highestScroll) {
+                highestScroll = currentScroll;
+                localStorage.setItem(`HighestScrollPosition_${essayId}`, highestScroll);
+            }
+        });
+    }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
-  const essays = {
-    1: {
-      title: "The Wonders of Space",
-      body: "Space is vast and full of mysteries. From black holes to distant galaxies, it continues to inspire humanity."
-    },
-    2: {
-      title: "The Beauty of Nature",
-      body: "Nature's beauty lies in its diversity, from towering mountains to serene beaches and lush forests."
-    },
-    3: {
-      title: "The Evolution of Technology",
-      body: "Technology has transformed our lives, from the invention of the wheel to the rise of artificial intelligence."
-    }
-  };
+    // Loop through all quiz boxes
+    document.querySelectorAll(".quiz-box").forEach((box) => {
+        const quizId = box.getAttribute("data-quiz-id"); // Get the quiz ID
+        const score = localStorage.getItem(`Score${quizId}`); // Retrieve the score from local storage
 
-  const modal = document.getElementById("essay-modal");
-  const modalTitle = document.getElementById("modal-title");
-  const modalBody = document.getElementById("modal-body");
-  const closeBtn = document.querySelector(".close-btn");
+        // Find the "Last Score:" element and update it
+        const lastScoreElement = box.querySelector("h3:nth-of-type(2)");
+        if (score !== null) {
+            lastScoreElement.textContent = `Letzte Bewertung: ${score}%`;
+        } else {
+            lastScoreElement.textContent = "Kein Versuch"; // Default if no score is found
+        }
+    });
+});
 
-  document.querySelectorAll(".essay-box").forEach((box) => {
+document.querySelectorAll(".quiz-box").forEach((box) => {
+    box.addEventListener("click", () => {
+      const quizLink = box.getAttribute("data-quiz-link");
+      if (quizLink) {
+        window.location.href = quizLink;
+      }
+    });
+});
+
+document.querySelectorAll(".essay-box").forEach((box) => {
     box.addEventListener("click", () => {
       const essayLink = box.getAttribute("data-essay-link");
       if (essayLink) {
-        window.location.href = essayLink; // Navigate to the essay page
+        window.location.href = essayLink;
       }
     });
-  });
-
-  closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-  });
-
-  window.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  });
 });
 
+function Flip_Card(Card_Element) {
+    Card_Element.classList.toggle('flipped');
+}
+
+function Previous_Card() {
+    if (document.querySelector('.active-card').classList.contains('flipped')) {
+        document.querySelector('.active-card').classList.toggle('flipped');
+    }
+    const Card_Index = parseInt(document.querySelector('#card-index').innerText);
+    if (Card_Index == 1) {
+        document.querySelector('#card-index').innerText =
+            document.querySelector('.cards-container').childElementCount;
+    } else {
+        document.querySelector('#card-index').innerText = Card_Index - 1;
+    }
+    Update_Card_By_Index();
+}
+
+function Next_Card() {
+    if (document.querySelector('.active-card').classList.contains('flipped')) {
+        document.querySelector('.active-card').classList.toggle('flipped');
+    }
+    const Card_Index = parseInt(document.querySelector('#card-index').innerText);
+    if (Card_Index == document.querySelector('.cards-container').childElementCount) {
+        document.querySelector('#card-index').innerText = 1;
+    } else {
+        document.querySelector('#card-index').innerText = Card_Index + 1;
+    }
+    Update_Card_By_Index();
+}
+
+function Update_Card_By_Index() {
+    const Previous_Card = document.querySelector('.active-card');
+    document.querySelector('.cards-container').children[document.querySelector('#card-index').innerText - 1].classList.remove('inactive-card');
+    document.querySelector('.cards-container').children[document.querySelector('#card-index').innerText - 1].classList.add('active-card');
+    Previous_Card.classList.remove('active-card');
+    Previous_Card.classList.add('inactive-card');
+}
+
+function Add_Index_Card() {
+    document.querySelector('#card-popup').style.display = 'block';
+}
+
+function Close_Popup() {
+    document.querySelector('#input-front').value = '';
+    document.querySelector('#input-back').value = '';
+    document.querySelector('#card-popup').style.display = 'none';
+}
+
+function Confirm_Card() {
+    const Front_Text = document.querySelector('#input-front').value;
+    const Back_Text = document.querySelector('#input-back').value;
+    if (Front_Text == '' || Back_Text == '') {
+        alert('Please fill in both fields!');
+        return;
+    }
+    const New_Card = document.createElement('div');
+    New_Card.classList.add('card', 'inactive-card');
+    New_Card.setAttribute('onclick', 'Flip_Card(this)');
+    New_Card.innerHTML = 
+        `<div class="card-inner">
+            <div class="card-face card-front">
+                <p>${Front_Text}</p>
+            </div>
+            <div class="card-face card-back">
+                <p>${Back_Text}</p>
+            </div>
+        </div>`;
+    document.querySelector('.cards-container').appendChild(New_Card);
+    Close_Popup();
+}
+
+function Submit() {
+    const Answers = document.querySelectorAll('#answers');
+    const Selections = document.querySelectorAll('#quiz-select');
+    const Max_Points = Answers.length + Selections.length;
+    let Correct_Answers = 0;
+    let feedback = ""; // Initialize feedback string
+
+    // Check radio button answers
+    for (let i = 0; i < Answers.length; i++) {
+        let questionCorrect = false;
+        for (let j = 0; j < 4; j++) {
+            const option = Answers[i].children[j];
+            if (option.checked) {
+                if (option.getAttribute('correct') === 'true') {
+                    Correct_Answers++;
+                    questionCorrect = true;
+                }
+            }
+        }
+        feedback += `<p>Auswahl ${i + 1}: ${questionCorrect ? "Korrekt" : "Falsch"}</p>`;
+    }
+
+    // Check dropdown answers
+    for (let i = 0; i < Selections.length; i++) {
+        const selection = Selections[i];
+        if (selection.value === selection.getAttribute('correct')) {
+            Correct_Answers++;
+            feedback += `<p>Lücke ${i + 1}: Korrekt</p>`;
+        } else {
+            feedback += `<p>Lücke ${i + 1}: Falsch</p>`;
+        }
+    }
+
+    const Score = Math.round((Correct_Answers / Max_Points) * 100);
+    const Quiz_Id = document.querySelector('#quiz-main').getAttribute('quiz-id');
+    localStorage.setItem('Score' + Quiz_Id, Score);
+
+    // Display score and feedback
+    document.querySelector('#score-display').innerHTML = `
+        <h3>Deine Bewertung: ${Score}%!</h3>
+        <h4>Feedback:</h4>
+        ${feedback}
+    `;
+}
+
+function Known() {
+    const currentIndex = parseInt(document.querySelector('#card-index').innerText); // Get the current card index
+    const knownCardsKey = 'KnownCards'; // Key for local storage
+    document.querySelector('.active-card').classList.add('known'); // Add a class to the active card
+    // Retrieve the list of known cards from local storage
+    let knownCards = JSON.parse(localStorage.getItem(knownCardsKey)) || [];
+
+    // Check if the current index is already in the list
+    if (!knownCards.includes(currentIndex)) {
+        knownCards.push(currentIndex); // Add the current index to the list
+        localStorage.setItem(knownCardsKey, JSON.stringify(knownCards)); // Save the updated list back to local storage
+    }
+}

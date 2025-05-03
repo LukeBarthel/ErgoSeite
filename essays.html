@@ -3,31 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Educational Journey - Essays</title>
+  <title>Ergo Lerntool - Essays</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
     <div class="header-content">
-      <h1><a href="index.html">Educational Journey</a></h1>
+      <h1><a href="index.html">Ergo Lerntool</a></h1>
       <nav>
         <ul>
           <li><a href="quizzes.html">Quizzes</a></li>
-          <li><a href="index-cards.html">Index Cards</a></li>
+          <li><a href="index-cards.html">Karteikarten</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main>
+    <section id="essay-text" class="section">
+      <div class="section-content">
+        <h2>Sachtexte</h2>
+        <div id="selected-essay-content">
+          <p id="selected-essay-body">
+            Hier findest du Sachtexte zu verschiedensten Themen im Bereich
+            Ergotherapie.
+          </p>
+        </div>
+      </div>
+    </section>
+    
     <section id="essays" class="section">
       <div class="section-content">
-        <h2>Explore Pre-Written Essays</h2>
+        <h2>Sachtextauswahl</h2>
         <div class="essay-selector-container">
           <div class="essay-grid scrollable">
             <div class="essay-box" data-essay-id="1" data-essay-link="EssayContent/essay1.html">
               <img src="images/essay1.jpg" alt="Essay 1 Image" />
-              <h3>The Wonders of Space</h3>
+              <h3>Berufliche Identität und professionelle Perspektiven in der Ergotherapie</h3>
             </div>
             <div class="essay-box" data-essay-id="2" data-essay-link="EssayContent/essay2.html">
               <img src="images/essay2.jpg" alt="Essay 2 Image" />
@@ -57,17 +69,6 @@
         </div>
       </div>
     </section>
-
-    <!-- New section for essay description -->
-    <section id="essay-text" class="section">
-      <div class="section-content">
-        <h2>Essay Page</h2>
-        <div id="selected-essay-content">
-          <h3 id="selected-essay-title">About</h3>
-          <p id="selected-essay-body">Here you can read about different topics.</p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <div id="essay-modal" class="modal">
@@ -79,7 +80,8 @@
   </div>
 
   <footer>
-    <p>&copy; 2025 Educational Journey. All rights reserved.</p>
+    <p>&copy; 2025 Ergo Lerntool. All rights reserved.</p>
+    <p>Silly Goose inc.</p>
   </footer>
   <script src="script.js"></script>
 </body>

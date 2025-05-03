@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz 1</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1><a href="../index.html">Ergo Lerntool</a></h1>
+      <nav>
+        <ul>
+          <li><a href="../quizzes.html">Quizzes</a></li>
+          <li><a href="../index-cards.html">Karteikarten</a></li>
+          <li><a href="../essays.html">Sachtexte</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="quiz-main" quiz-id="2">
+    <section class="section">
+      <div class="section-content">
+        <h2>Ergo Stuff</h2>
+        <p>This Quiz is about Ergo Stuff</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-content question-section">
+        <h2>Question?</h2>
+        <div id="answers">
+          <input type="radio" id="A" name="question1" correct="true"> Option A<br>
+          <input type="radio" id="B" name="question1" correct="false"> Option B<br>
+          <input type="radio" id="C" name="question1" correct="false"> Option C<br>
+          <input type="radio" id="D" name="question1" correct="false"> Option D<br>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-content question-section">
+        <h2>Title</h2>
+        <a>Here is a bunch of
+          <select id="quiz-select" correct="1">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+            <option value="4">Option 4</option>
+          </select>
+          about Ergo Stuff.
+        </a>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-content">
+        <h2>Abgabeoptionen</h2>
+        <p>
+          Wenn du fertig bist kannst du hier abgeben,
+          oder abbrechen, wobei deine Antworten nicht hinterlegt werden. Nach
+          der Abgabe bekommst du eine Bewertung, diese wird dann gespeichert,
+          kann aber jederzeit verbessert werden.
+        </p>
+        <p id="score-display"></p>
+        <div class="action-btn" onclick="Submit()">Abgeben</div>
+        <a class="action-btn" href="../quizzes.html">Zurück</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Ergo Lerntool. All rights reserved.</p>
+    <p>Silly Goose inc.</p>
+  </footer>
+  <script src="../script.js"></script>
+</body>
+</html>

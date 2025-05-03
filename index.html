@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Educational Journey - Home</title>
+  <title>Ergo Lerntool - Home</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <header>
         <div class="header-content">
-          <h1><a href="index.html">Educational Journey</a></h1>
+          <h1><a href="index.html">Ergo Lerntool</a></h1>
           <nav>
             <ul>
               <li><a href="quizzes.html">Quizzes</a></li>
-              <li><a href="index-cards.html">Index Cards</a></li>
-              <li><a href="essays.html">Essays</a></li>
+              <li><a href="index-cards.html">Karteikarten</a></li>
+              <li><a href="essays.html">Sachtexte</a></li>
             </ul>
           </nav>
           <!-- User Dropdown Menu -->
@@ -30,11 +30,11 @@
                 </div>
                 <div class="donut-chart-container">
                   <canvas id="indexCardsChart" width="120" height="120"></canvas>
-                  <div class="donut-center" id="indexCardsChartCenter">0%<br>Cards</div>
+                  <div class="donut-center" id="indexCardsChartCenter">0%<br>Karten</div>
                 </div>
                 <div class="donut-chart-container">
                   <canvas id="essayChart" width="120" height="120"></canvas>
-                  <div class="donut-center" id="essayChartCenter">0%<br>Essay</div>
+                  <div class="donut-center" id="essayChartCenter">0%<br>Texte</div>
                 </div>
               </div>
               <hr>
@@ -46,22 +46,45 @@
   <main>
     <section class="section home-intro">
       <div class="section-content">
-        <h2>Welcome to Educational Journey</h2>
+        <h2>Wilkommen zu deinem Perönlichem Ergo Lerntool</h2>
         <p>
-          Dive into a world of interactive learning! Our platform offers three dynamic tools to boost your education:
-          engaging quizzes, interactive index cards for quick revision, and comprehensive essay writing for in-depth understanding.
+          Ursprünglich ist das ganze hier entstanden, weil ich dachte, das wäre doch
+          eine tolle Möglichkeit für dich ein wenig geführt zu lernen und für mich KI
+          ein wenig auszutesten. Leider stellte sich heraus, dass KI manchmal hilfreich
+          sein kann, mir aber im regelfall das leben schwerer macht. Deswegen habe ich
+          aufgegeben KI zu benutzen und dachte mir sollte eigentlich nicht schwer sein
+          und siehe da ging dann auch recht schnell.<br>
+          Bisher gibt es nur einen Sachtext, ein Quiz und 7 Karteikarten, aber es ist
+          recht leicht mehr Inhalt hinzuzufügen und das werde ich die Tage auch machen.<br>
+          Wie dem auch sei ich hoffe du hast Spaß mit dem Tool und ich habe dich ganz doll
+          lieb.
+        </p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-content">
+        <h2>Anleitung</h2>
+        <p>
+          Es gibt drei Kategorien mit denen du lernen kannst.
+          Sachtexte, Quizzes, welche Thematisch zu den Sachtexten passen und
+          Karteikarten.<br>
+          Es sollte alles recht selbsterklärend sein, wenn nicht kannst du ja
+          einfach fragen.<br>
+          Dein Fortschritt wird immer festgehalten und ist oben rechts unter
+          "Dein Fortschritt" sichtbar.
         </p>
         <div class="explore-links">
-          <a href="quizzes.html" class="action-btn">Go to Quizzes</a>
-          <a href="index-cards.html" class="action-btn">Go to Index Cards</a>
-          <a href="essays.html" class="action-btn">Go to Essays</a>
+          <a href="quizzes.html" class="action-btn">zu den Quizzes</a>
+          <a href="index-cards.html" class="action-btn">zu den Karteikarten</a>
+          <a href="essays.html" class="action-btn">zu den Sachtexten</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Educational Journey. All rights reserved.</p>
+    <p>&copy; 2025 Ergo Lerntool. All rights reserved.</p>
+    <p>Silly Goose inc.</p>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
